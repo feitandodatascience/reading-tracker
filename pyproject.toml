@@ -3,6 +3,8 @@ name = "reading-tracker"
 version = "0.1.0"
 description = "Personal reading tracker with a public Streamlit dashboard."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "feitandodatascience", email = "279754069+feitandodatascience@users.noreply.github.com" }
 ]

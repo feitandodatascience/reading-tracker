@@ -87,3 +87,9 @@ reading-tracker/
 - [ ] Branded dashboard: progress, calendar heatmap, weekly goal, pace, timeline
 - [ ] Deploy the dashboard to Streamlit Community Cloud
 - [ ] Bayesian time-to-finish model with a backtest (notebook)
+
+## License
+
+The code is released under the [MIT License](LICENSE). My personal reading data
+(`data/processed/`) and personal brand (`brand.md`, `assets/`) are not covered by
+it.
