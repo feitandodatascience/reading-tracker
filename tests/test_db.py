@@ -100,6 +100,7 @@ def test_schema_matches_data_model(conn):
         ("title", "TEXT", 1, 0),
         ("author", "TEXT", 0, 0),
         ("genre", "TEXT", 0, 0),
+        ("language", "TEXT", 0, 0),
         ("format", "TEXT", 0, 0),
         ("progress_unit", "TEXT", 0, 0),
         ("total_pages", "INTEGER", 0, 0),

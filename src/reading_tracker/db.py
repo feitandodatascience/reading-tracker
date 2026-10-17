@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS books (
     title          TEXT NOT NULL,
     author         TEXT,
     genre          TEXT,
+    language       TEXT,     -- e.g. 'English', 'Vietnamese'
     format         TEXT CHECK (format IN ('physical', 'ebook', 'audio')),
     progress_unit  TEXT CHECK (progress_unit IN ('page', 'percent')),
     total_pages    INTEGER,  -- print-equivalent page count, also for ebooks
