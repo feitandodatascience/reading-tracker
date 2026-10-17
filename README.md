@@ -55,8 +55,18 @@ uv sync
 uv run pytest
 ```
 
-_Commands for the tracker, demo data, export, and dashboard will be added as
-those parts land._
+**Tracker (private).** Logs sessions to `data/raw/reading.db`, which is
+gitignored, and only listens on this computer:
+
+```bash
+uv run streamlit run app/tracker.py --server.address localhost
+```
+
+To try it on a throwaway database first, set `READING_TRACKER_DB` to another
+path (for example `data/raw/try.db`) before running the command above.
+
+_Commands for demo data, export, and the dashboard will be added as those parts
+land._
 
 ## Project structure
 
@@ -82,7 +92,7 @@ reading-tracker/
 ## Roadmap
 
 - [x] Project scaffold: uv, ruff, pytest, CI, SQLite schema
-- [ ] Tracker: start/stop sessions, add books, log past sessions
+- [x] Tracker: start/stop sessions, add books, log past sessions
 - [ ] Features, synthetic demo data, privacy-safe export, baseline ETA
 - [ ] Branded dashboard: progress, calendar heatmap, weekly goal, pace, timeline
 - [ ] Deploy the dashboard to Streamlit Community Cloud
