@@ -13,11 +13,26 @@ borderColor = "#D8C4A2"             # hairline
 codeBackgroundColor = "#F1E7D2"     # Paper
 orangeColor = "#CB7C5B"             # Clay, used by the "Demo data" badge
 greenColor = "#5C6449"              # Olive, used for section eyebrows
-font = "sans-serif"                 # until Glacial Indifference is self-hosted
+font = "Glacial Indifference"       # self-hosted, see [[theme.fontFaces]] below
 headingFontWeights = [700, 700, 700, 700, 700, 700]
 baseRadius = "0.5rem"
 showWidgetBorder = true
 chartCategoricalColors = ["#5C6449", "#9A8C74", "#2A241E"]
+
+# Glacial Indifference (SIL OFL 1.1), from the designer's official repository
+# github.com/marcologous/glacial-indifference. Streamlit serves app/static/.
+[[theme.fontFaces]]
+family = "Glacial Indifference"
+url = "app/static/fonts/GlacialIndifference-Regular.otf"
+weight = 400
+
+[[theme.fontFaces]]
+family = "Glacial Indifference"
+url = "app/static/fonts/GlacialIndifference-Bold.otf"
+weight = 700
+
+[server]
+enableStaticServing = true
 
 [client]
 toolbarMode = "viewer"  # no developer menu on the public dashboard

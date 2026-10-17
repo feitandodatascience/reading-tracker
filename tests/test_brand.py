@@ -65,3 +65,18 @@ def test_plotly_template_is_registered_with_brand_colours():
 def test_finished_and_abandoned_use_the_validated_pair():
     assert brand.STATUS_COLORS["finished"] == brand.OLIVE
     assert brand.STATUS_COLORS["abandoned"] == brand.WARM_NEUTRAL
+
+
+def test_brand_font_is_self_hosted_for_streamlit_and_plotly():
+    config = tomllib.loads(CONFIG.read_text(encoding="utf-8"))
+    family = "Glacial Indifference"
+    assert config["server"]["enableStaticServing"] is True
+    assert config["theme"]["font"] == family
+    faces = config["theme"]["fontFaces"]
+    assert {face["weight"] for face in faces} == {400, 700}  # brand.md: two weights
+    for face in faces:
+        assert face["family"] == family
+        # Streamlit serves app/static/ under the URL prefix app/static/.
+        assert (db.PROJECT_ROOT / face["url"]).is_file()
+    assert (db.PROJECT_ROOT / "app" / "static" / "fonts" / "OFL.txt").is_file()
+    assert brand.FONT_FAMILY.startswith(f'"{family}"')
