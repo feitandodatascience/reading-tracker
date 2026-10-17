@@ -29,6 +29,7 @@ dev = [
 [tool.ruff]
 line-length = 88
 target-version = "py312"
+extend-include = ["*.pyw"]  # the Windows tracker launcher
 
 [tool.ruff.lint]
 select = [

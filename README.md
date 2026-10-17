@@ -62,6 +62,11 @@ gitignored, and only listens on this computer:
 uv run streamlit run app/tracker.py --server.address localhost
 ```
 
+On Windows you can skip the terminal: double-click `app/start_tracker.pyw` (or a
+desktop shortcut to it). It starts the tracker in the background on
+<http://localhost:8519> and opens it in your browser; double-click again to
+reopen the tab.
+
 To try it on a throwaway database first, set `READING_TRACKER_DB` to another
 path (for example `data/raw/try.db`) before running the command above.
 
