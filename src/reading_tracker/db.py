@@ -7,6 +7,8 @@ derived (duration, pace, fraction complete) is computed in ``features.py``.
 import sqlite3
 from pathlib import Path
 
+import pandas as pd
+
 
 def _is_project_root(directory: Path) -> bool:
     return (directory / "pyproject.toml").is_file() and (
@@ -102,3 +104,13 @@ def connect(db_path: Path | str | None = None) -> sqlite3.Connection:
         conn.close()
         raise
     return conn
+
+
+def read_books(conn: sqlite3.Connection) -> pd.DataFrame:
+    """Return the ``books`` table as a DataFrame, ordered by ``book_id``."""
+    return pd.read_sql_query("SELECT * FROM books ORDER BY book_id", conn)
+
+
+def read_sessions(conn: sqlite3.Connection) -> pd.DataFrame:
+    """Return the ``sessions`` table as a DataFrame, ordered by ``session_id``."""
+    return pd.read_sql_query("SELECT * FROM sessions ORDER BY session_id", conn)
