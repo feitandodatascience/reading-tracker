@@ -43,9 +43,16 @@ BIG_BUTTONS_CSS = """
 
 
 def format_duration(seconds: float) -> str:
-    """Format seconds as '7 min' or '1 h 05 min'."""
-    hours, minutes = divmod(int(seconds // 60), 60)
-    return f"{hours} h {minutes:02d} min" if hours else f"{minutes} min"
+    """Format seconds as '1 hour, 5 minutes, 9 seconds' (zero leading units left out).
+
+    ``45`` -> '45 seconds', ``725`` -> '12 minutes, 5 seconds'.
+    """
+    minutes, secs = divmod(max(int(seconds), 0), 60)
+    hours, minutes = divmod(minutes, 60)
+    parts = [(hours, "hour"), (minutes, "minute"), (secs, "second")]
+    while len(parts) > 1 and parts[0][0] == 0:
+        parts.pop(0)
+    return ", ".join(f"{n} {unit}{'' if n == 1 else 's'}" for n, unit in parts)
 
 
 def book_labels(books: list[dict]) -> dict[int, str]:
@@ -119,11 +126,11 @@ def select_next_book(conn: sqlite3.Connection, book_id: int | None = None) -> No
 # --- screens ---------------------------------------------------------------------
 
 
-@st.fragment(run_every="15s")
+@st.fragment(run_every="1s")
 def elapsed_timer(started: datetime) -> None:
     elapsed = (log.now() - started).total_seconds()
     st.metric(
-        "Reading for", format_duration(elapsed), help=f"Started at {started:%H:%M}"
+        "Reading for", format_duration(elapsed), help=f"Started at {started:%H:%M:%S}"
     )
 
 
@@ -349,7 +356,7 @@ def render_past_session(conn: sqlite3.Connection, books: list[dict]) -> None:
                 st.error(str(error))
             else:
                 st.session_state["past_form"] = n + 1
-                flash(f"Logged {minutes} min of *{book['title']}*.")
+                flash(f"Logged {format_duration(minutes * 60)} of *{book['title']}*.")
                 st.rerun()
 
 

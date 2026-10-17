@@ -189,7 +189,7 @@ def test_stop_logs_the_session_and_prefills_next_start(app, db_path):
     app.run()
 
     stop(app, session_id, 42, note="  great chapter ")
-    assert successes(app)[0].startswith("Logged 20 min")
+    assert successes(app)[0].startswith("Logged 20 minutes")
     (session,) = query(db_path, "SELECT * FROM sessions")
     assert session["end_pos"] == 42
     assert session["note"] == "great chapter"
@@ -203,7 +203,7 @@ def test_two_full_cycles_through_the_buttons_keep_prefill_current(app, db_path, 
         clock(minutes=10)
         app.run()
         stop(app, session_id, end)
-        assert successes(app)[0] == "Logged 10 min of reading."
+        assert successes(app)[0] == "Logged 10 minutes, 0 seconds of reading."
         assert app.number_input(key=f"start_1_{end}").value == end
     assert [
         (s["start_pos"], s["end_pos"]) for s in query(db_path, "SELECT * FROM sessions")
@@ -312,7 +312,7 @@ def test_log_a_past_session_and_start_prefill_follows(app, db_path):
     app.number_input(key="past_to_0_1_0").set_value(30)
     app.button(key="log_past").click().run()
     assert not app.exception
-    assert successes(app) == ["Logged 45 min of *Dune*."]
+    assert successes(app) == ["Logged 45 minutes, 0 seconds of *Dune*."]
 
     (session,) = query(db_path, "SELECT * FROM sessions")
     start = log.parse_timestamp(session["started_at"])
