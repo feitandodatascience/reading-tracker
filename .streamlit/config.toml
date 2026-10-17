@@ -1,0 +1,26 @@
+# Theme derived from brand.md. The same values live in
+# src/reading_tracker/brand.py; tests/test_brand.py keeps the two in sync.
+# Light only for v1: brand.md doesn't fully define dark mode yet.
+
+[theme]
+base = "light"
+primaryColor = "#5C6449"            # Olive: the everyday interactive layer
+backgroundColor = "#E7D8BE"         # Sand
+secondaryBackgroundColor = "#DFCFB2"  # Mist: widget and sunken surfaces
+textColor = "#322A22"               # body ink
+linkColor = "#5C6449"               # Olive
+borderColor = "#D8C4A2"             # hairline
+codeBackgroundColor = "#F1E7D2"     # Paper
+orangeColor = "#CB7C5B"             # Clay, used by the "Demo data" badge
+greenColor = "#5C6449"              # Olive, used for section eyebrows
+font = "sans-serif"                 # until Glacial Indifference is self-hosted
+headingFontWeights = [700, 700, 700, 700, 700, 700]
+baseRadius = "0.5rem"
+showWidgetBorder = true
+chartCategoricalColors = ["#5C6449", "#9A8C74", "#2A241E"]
+
+[client]
+toolbarMode = "viewer"  # no developer menu on the public dashboard
+
+[browser]
+gatherUsageStats = false
