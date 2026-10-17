@@ -8,120 +8,82 @@
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://<your-app>.streamlit.app)
 -->
 
-A personal reading tracker and a public dashboard of my reading habits, built as a
-data science portfolio project.
+I read in English and Vietnamese, mostly paper books. This project logs every
+reading session in a few seconds and turns them into a public dashboard of my
+reading habits, with a simple estimate of when I'll finish the current book.
 
-## Overview
+![Dashboard showing the current book with an estimated finish date, a calendar heatmap of daily reading, and weekly minutes against a goal](docs/dashboard.png)
 
-- **Log in seconds.** A small private Streamlit app starts and stops reading
-  sessions with one click, so the habit (and the data) survives.
-- **Show the journey.** A public dashboard turns those sessions into daily
-  minutes, streaks, pace by genre and format, and a timeline of finished books.
-- **Estimate the finish.** A baseline time-to-finish estimate for the current
-  book, built from my own reading history.
+<sub>Shown with the synthetic demo data that ships with the repo.</sub>
 
-## Screenshots
+## What it does
 
-_Coming soon: dashboard screenshots will go here._
+- **Logs reading in under 10 seconds.** A private Streamlit tracker with one big
+  Start and one big Stop button, prefilled with the page where I stopped last time.
+  Past sessions, new books, and finished or abandoned books go in expanders.
+- **Shows the journey.** A public dashboard: current book and finish estimate,
+  streaks and a calendar heatmap, weekly minutes against a goal, pace by genre,
+  format or language, and a timeline of finished books.
+- **Estimates the finish date.** A transparent baseline: pages left ÷ recent
+  median pace ÷ recent minutes per day, shown as a date range.
 
 ## How it works
 
 ```
-tracker (Streamlit, local) ──> data/raw/reading.db      private, gitignored
-                                       │
-                                  export.py              drops notes, rounds times to the hour
-                                       ▼
-                               data/processed/*.parquet ──> dashboard (Streamlit, public)
-                                                                ▲
-synthetic.py ──> data/demo/demo.db ─────────────────────────────┘  "Demo data" mode
+tracker (private) ──> data/raw/reading.db ──> export.py ──> data/processed/*.parquet ──> dashboard (public)
+                       SQLite, gitignored     drops notes,                                    ▲
+                                              floors times to the hour                        │
+synthetic.py ──> data/demo/demo.db (seeded, labelled "Demo data") ───────────────────────────┘
 ```
 
-- **Raw events only.** SQLite stores books and sessions (start, stop, position).
-  Duration, pace, and progress are derived in pandas, never stored.
-- **Privacy by design.** The real database never leaves my machine. The public
-  dashboard reads only a privacy-filtered export (notes removed, times rounded
-  to the hour) or synthetic demo data, and always labels demo data as such.
-- **Baseline ETA.** Remaining pages divided by recent median pace, and remaining
-  minutes divided by recent minutes per day.
+- **Raw events only.** SQLite stores books and sessions. Duration, pace,
+  streaks and progress are derived in pandas (`features.py`), never stored.
+- **Validated at the source.** One active session at a time, no overlapping or
+  future sessions, positions within the book, timestamps with their UTC offset.
+- **Private by design.** The real database never leaves my machine. The public
+  data has no notes, start times rounded down to the hour, and no end times.
+- **On brand.** One palette and font (Glacial Indifference) defined in
+  `brand.py` and `.streamlit/config.toml`; chart colours checked for colour blindness.
 
-## Run locally
+## Run it
 
 Requires [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/feitandodatascience/reading-tracker.git
-cd reading-tracker
 uv sync
-uv run pytest
+uv run streamlit run app/dashboard.py                           # dashboard (demo data out of the box)
+uv run streamlit run app/tracker.py --server.address localhost  # private tracker
+uv run python -m reading_tracker.export                         # publish my data to the dashboard
+uv run pytest                                                   # 200+ tests
 ```
 
-**Tracker (private).** Logs sessions to `data/raw/reading.db`, which is
-gitignored, and only listens on this computer:
-
-```bash
-uv run streamlit run app/tracker.py --server.address localhost
-```
-
-On Windows you can skip the terminal: double-click `app/start_tracker.pyw` (or a
-desktop shortcut to it). It starts the tracker in the background on
-<http://localhost:8519> and opens it in your browser; double-click again to
-reopen the tab.
-
-To try it on a throwaway database first, set `READING_TRACKER_DB` to another
-path (for example `data/raw/try.db`) before running the command above.
-
-**Demo data and export.**
-
-```bash
-uv run python -m reading_tracker.synthetic  # rebuild data/demo/demo.db (seeded)
-uv run python -m reading_tracker.export     # data/raw/reading.db -> data/processed/
-```
-
-The export keeps book details, start times rounded down to the hour, durations
-and positions. Notes and exact times stay private.
-
-**Dashboard (public).** Shows exported data when `data/processed/` has it, and
-the labelled synthetic demo otherwise:
-
-```bash
-uv run streamlit run app/dashboard.py
-```
-
-On Windows, `app/start_dashboard.pyw` opens a local preview at
-<http://localhost:8520> the same way the tracker launcher does.
+On Windows, `app/start_tracker.pyw` and `app/start_dashboard.pyw` start each app
+with a double-click.
 
 ## Project structure
 
 ```
-reading-tracker/
-├── app/                    # Streamlit apps: tracker (private) and dashboard (public)
-├── data/
-│   ├── raw/                # real database (gitignored)
-│   ├── demo/               # synthetic demo database
-│   └── processed/          # exported public data (notes removed, times rounded)
-├── notebooks/              # exploration and the ETA model
-├── src/reading_tracker/
-│   ├── db.py               # schema, connection, read/write helpers
-│   ├── log.py              # session logging and validation
-│   ├── features.py         # pace, daily minutes, streaks, progress
-│   ├── eta.py              # baseline time-to-finish estimate
-│   ├── synthetic.py        # seeded demo data generator
-│   ├── export.py           # private db -> public parquet
-│   └── brand.py            # colour palette and plotly template
-└── tests/
+app/                  tracker.py, dashboard.py, double-click launchers, static/fonts
+src/reading_tracker/  db · log (validation) · features · eta · synthetic · export · brand
+data/                 raw/ (private, gitignored) · demo/ · processed/ (public)
+tests/                unit tests and click-through app tests (Streamlit AppTest)
 ```
+
+**Stack:** Python 3.12, uv, SQLite, pandas, Streamlit, Plotly, ruff, pytest,
+GitHub Actions.
 
 ## Roadmap
 
-- [x] Project scaffold: uv, ruff, pytest, CI, SQLite schema
-- [x] Tracker: start/stop sessions, add books, log past sessions
-- [x] Features, synthetic demo data, privacy-safe export, baseline ETA
-- [x] Branded dashboard: progress, calendar heatmap, weekly goal, pace, timeline
+- [x] **v1.0:** tracker, features, demo data, privacy-safe export, baseline ETA, branded dashboard
+- [ ] Import my reading history from Toggl
 - [ ] Deploy the dashboard to Streamlit Community Cloud
-- [ ] Bayesian time-to-finish model with a backtest (notebook)
+- [ ] Bayesian time-to-finish model with a backtest (`notebooks/02_eta_model.ipynb`)
+
+See [CHANGELOG.md](CHANGELOG.md) for what changed in each version.
 
 ## License
 
-The code is released under the [MIT License](LICENSE). My personal reading data
-(`data/processed/`) and personal brand (`brand.md`, `assets/`) are not covered by
-it.
+The code is released under the [MIT License](LICENSE). The Glacial Indifference
+font is under the [SIL Open Font License](app/static/fonts/OFL.txt). My personal
+reading data (`data/processed/`) and personal brand (`brand.md`, `assets/`) are
+not covered by the MIT License.
