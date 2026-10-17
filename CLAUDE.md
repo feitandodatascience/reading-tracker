@@ -70,6 +70,7 @@ books (
   title          TEXT NOT NULL,
   author         TEXT,
   genre          TEXT,
+  language       TEXT,      -- e.g. 'English', 'Vietnamese' (Unicode NFC)
   format         TEXT CHECK (format IN ('physical', 'ebook', 'audio')),
   progress_unit  TEXT CHECK (progress_unit IN ('page', 'percent')),
   total_pages    INTEGER,   -- print-equivalent page count, also for ebooks
@@ -93,7 +94,8 @@ Rules:
 - Timestamps are ISO 8601 **with UTC offset** (`datetime.now().astimezone().isoformat()`).
 - Store raw events only. Duration, pace, and fraction complete are derived in `features.py`, never stored.
 - At most one active session (`ended_at IS NULL`) at a time.
-- Validation: `ended_at > started_at`, `end_pos >= start_pos`, and positions within book bounds.
+- Validation: `ended_at > started_at`, `end_pos >= start_pos`, and positions within book bounds. Sessions never overlap and never end in the future.
+- Text fields are stripped and stored in Unicode NFC, so Vietnamese diacritics typed on different keyboards group together.
 - A session spanning midnight is attributed to its start date for daily aggregates.
 - Audiobooks are tracked but excluded from page-based pace calculations.
 
