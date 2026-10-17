@@ -102,7 +102,7 @@ Rules:
 ## Privacy
 
 - `data/raw/` is gitignored. The real database never gets committed.
-- `export.py` drops `note` and rounds timestamps to the hour before writing to `data/processed/`.
+- `export.py` drops `note` and rounds timestamps down to the hour before writing to `data/processed/`. Sessions keep `duration_s` instead of `ended_at`, since rounding both ends would destroy durations; active sessions are left out.
 - The dashboard reads only from `data/processed/` (real) or `data/demo/` (synthetic).
 - Committed notebooks read only from `data/processed/` or `data/demo/`, never `data/raw/`, and are saved with all outputs cleared. `tests/test_notebooks.py` enforces both.
 

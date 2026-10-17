@@ -70,8 +70,17 @@ reopen the tab.
 To try it on a throwaway database first, set `READING_TRACKER_DB` to another
 path (for example `data/raw/try.db`) before running the command above.
 
-_Commands for demo data, export, and the dashboard will be added as those parts
-land._
+**Demo data and export.**
+
+```bash
+uv run python -m reading_tracker.synthetic  # rebuild data/demo/demo.db (seeded)
+uv run python -m reading_tracker.export     # data/raw/reading.db -> data/processed/
+```
+
+The export keeps book details, start times rounded down to the hour, durations
+and positions. Notes and exact times stay private.
+
+_The dashboard command will be added in the next phase._
 
 ## Project structure
 
@@ -98,7 +107,7 @@ reading-tracker/
 
 - [x] Project scaffold: uv, ruff, pytest, CI, SQLite schema
 - [x] Tracker: start/stop sessions, add books, log past sessions
-- [ ] Features, synthetic demo data, privacy-safe export, baseline ETA
+- [x] Features, synthetic demo data, privacy-safe export, baseline ETA
 - [ ] Branded dashboard: progress, calendar heatmap, weekly goal, pace, timeline
 - [ ] Deploy the dashboard to Streamlit Community Cloud
 - [ ] Bayesian time-to-finish model with a backtest (notebook)
