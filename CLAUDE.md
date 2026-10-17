@@ -37,13 +37,16 @@ Do **not** add: FastAPI, Docker, SQLAlchemy, auth, Celery, config frameworks, or
 
 ```
 reading-tracker/
-├── README.md
+├── README.md               # one-page project overview for GitHub
+├── CHANGELOG.md            # one entry per version
 ├── CLAUDE.md
 ├── brand.md                # branding source of truth (colors, fonts, tone)
 ├── pyproject.toml
-├── .streamlit/config.toml  # theme derived from brand.md
+├── .streamlit/config.toml  # theme derived from brand.md (+ font faces)
+├── assets/tracker.ico      # "F" monogram for the desktop shortcuts
+├── docs/dashboard.png      # README screenshot (demo data)
 ├── data/
-│   ├── raw/                # gitignored: reading.db (real data)
+│   ├── raw/                # gitignored: reading.db (real data), launcher logs
 │   ├── demo/               # demo.db (synthetic, committed)
 │   └── processed/          # exported public data (committed)
 ├── notebooks/
@@ -57,10 +60,17 @@ reading-tracker/
 │   ├── export.py           # raw db -> data/processed/*.parquet
 │   └── brand.py            # color palette + plotly template from brand.md
 ├── app/
-│   ├── tracker.py          # private logging UI (run locally)
-│   └── dashboard.py        # public dashboard
+│   ├── tracker.py          # private logging UI (run locally, port 8519 via launcher)
+│   ├── dashboard.py        # public dashboard (port 8520 via launcher)
+│   ├── launcher.py         # shared logic for the double-click launchers
+│   ├── start_tracker.pyw   # Windows double-click launchers (localhost only)
+│   ├── start_dashboard.pyw
+│   └── static/fonts/       # self-hosted Glacial Indifference + OFL.txt
 └── tests/
 ```
+
+The tracker stays on localhost (no remote or phone access, by decision). Reading
+done away from the PC is timed elsewhere and entered via "Log a past session".
 
 ## Data model
 
@@ -121,6 +131,9 @@ Rules:
 - `brand.md` is the single source of truth for colors, fonts, tone, and visual style.
 - Encode it once in `src/reading_tracker/brand.py` (palette constants and a registered plotly template) and in `.streamlit/config.toml`. Everything else imports from there; no hex codes scattered across files.
 - If `brand.md` doesn't specify something, choose a neutral default and list it under "assumptions" in your summary. Don't invent brand elements.
+- `tests/test_brand.py` enforces the above: config.toml mirrors brand.py, and no hex codes appear in other code.
+- Fonts live in `app/static/fonts/` (Streamlit only serves `static/` next to the app), not `assets/fonts/` as brand.md suggests. Glacial Indifference has no Vietnamese diacritics, so book titles are entered in English.
+- Charts: Olive and Bark are too close to tell apart (validated); pair Olive with the warm neutral `FAINT_INK`. Clay only highlights one thing per view.
 
 ## Workflow
 
