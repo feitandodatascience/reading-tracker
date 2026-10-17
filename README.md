@@ -80,7 +80,12 @@ uv run python -m reading_tracker.export     # data/raw/reading.db -> data/proces
 The export keeps book details, start times rounded down to the hour, durations
 and positions. Notes and exact times stay private.
 
-_The dashboard command will be added in the next phase._
+**Dashboard (public).** Shows exported data when `data/processed/` has it, and
+the labelled synthetic demo otherwise:
+
+```bash
+uv run streamlit run app/dashboard.py
+```
 
 ## Project structure
 
@@ -108,7 +113,7 @@ reading-tracker/
 - [x] Project scaffold: uv, ruff, pytest, CI, SQLite schema
 - [x] Tracker: start/stop sessions, add books, log past sessions
 - [x] Features, synthetic demo data, privacy-safe export, baseline ETA
-- [ ] Branded dashboard: progress, calendar heatmap, weekly goal, pace, timeline
+- [x] Branded dashboard: progress, calendar heatmap, weekly goal, pace, timeline
 - [ ] Deploy the dashboard to Streamlit Community Cloud
 - [ ] Bayesian time-to-finish model with a backtest (notebook)
 
