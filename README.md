@@ -87,6 +87,9 @@ the labelled synthetic demo otherwise:
 uv run streamlit run app/dashboard.py
 ```
 
+On Windows, `app/start_dashboard.pyw` opens a local preview at
+<http://localhost:8520> the same way the tracker launcher does.
+
 ## Project structure
 
 ```
