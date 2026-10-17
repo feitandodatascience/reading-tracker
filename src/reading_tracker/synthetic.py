@@ -1,8 +1,9 @@
 """Seeded synthetic reading history for the public demo (``data/demo/demo.db``).
 
-About six months and fifteen books in English and Vietnamese, mostly physical
-with some ebooks and audiobooks, with streaks, gaps (a trip, a sick week) and
-two abandoned books. Everything is written through ``log``, so the demo obeys
+About six months and fifteen books read in English and Vietnamese (listed by
+their English titles, as the brand font has no Vietnamese diacritics), mostly
+physical with some ebooks and audiobooks, with streaks, gaps (a trip, a sick
+week) and two abandoned books. Everything is written through ``log``, so the demo obeys
 the same validation rules as real data.
 
 The default end date is fixed, so the same seed always gives the same file:
@@ -25,26 +26,26 @@ DAYS = 182
 # title, author, genre, language, format, total_pages (print), audio hours
 CATALOG = [
     ("Project Hail Mary", "Andy Weir", "Science fiction", "English", "physical", 476, None),  # noqa: E501
-    ("Tôi thấy hoa vàng trên cỏ xanh", "Nguyễn Nhật Ánh", "Fiction", "Vietnamese", "physical", 378, None),  # noqa: E501
+    ("I See Yellow Flowers in the Green Grass", "Nguyen Nhat Anh", "Fiction", "Vietnamese", "physical", 378, None),  # noqa: E501
     ("Sapiens", "Yuval Noah Harari", "History", "English", "physical", 443, None),
     ("Atomic Habits", "James Clear", "Self-help", "English", "ebook", 320, None),
-    ("Mắt biếc", "Nguyễn Nhật Ánh", "Fiction", "Vietnamese", "physical", 300, None),
+    ("Dreamy Eyes", "Nguyen Nhat Anh", "Fiction", "Vietnamese", "physical", 300, None),
     ("Thinking, Fast and Slow", "Daniel Kahneman", "Psychology", "English", "physical", 499, None),  # noqa: E501
-    ("Số đỏ", "Vũ Trọng Phụng", "Classic", "Vietnamese", "ebook", 240, None),
+    ("Dumb Luck", "Vu Trong Phung", "Classic", "Vietnamese", "ebook", 240, None),
     ("The Midnight Library", "Matt Haig", "Fiction", "English", "physical", 288, None),
-    ("Nỗi buồn chiến tranh", "Bảo Ninh", "Fiction", "Vietnamese", "physical", 320, None),  # noqa: E501
+    ("The Sorrow of War", "Bao Ninh", "Fiction", "Vietnamese", "physical", 320, None),  # noqa: E501
     ("Klara and the Sun", "Kazuo Ishiguro", "Fiction", "English", "ebook", 303, None),
-    ("Dế Mèn phiêu lưu ký", "Tô Hoài", "Classic", "Vietnamese", "physical", 144, None),
+    ("Diary of a Cricket", "To Hoai", "Classic", "Vietnamese", "physical", 144, None),
     ("The Pragmatic Programmer", "David Thomas, Andrew Hunt", "Technology", "English", "physical", 352, None),  # noqa: E501
-    ("Đắc nhân tâm", "Dale Carnegie", "Self-help", "Vietnamese", "physical", 320, None),
+    ("How to Win Friends and Influence People", "Dale Carnegie", "Self-help", "Vietnamese", "physical", 320, None),  # noqa: E501
     ("Norwegian Wood", "Haruki Murakami", "Fiction", "English", "physical", 296, None),
-    ("Nhà giả kim", "Paulo Coelho", "Fiction", "Vietnamese", "physical", 228, None),
+    ("The Alchemist", "Paulo Coelho", "Fiction", "Vietnamese", "physical", 228, None),
     ("The Design of Everyday Things", "Don Norman", "Technology", "English", "physical", 368, None),  # noqa: E501
     ("Homo Deus", "Yuval Noah Harari", "History", "English", "physical", 450, None),
     ("Dune", "Frank Herbert", "Science fiction", "English", "audio", None, 21.0),
     ("Educated", "Tara Westover", "Memoir", "English", "audio", None, 12.0),
 ]  # fmt: skip
-ABANDON_AT = {"Thinking, Fast and Slow": 0.35, "Nỗi buồn chiến tranh": 0.4}
+ABANDON_AT = {"Thinking, Fast and Slow": 0.35, "The Sorrow of War": 0.4}
 BASE_PACE = {"English": 0.75, "Vietnamese": 1.0}  # pages per minute
 GENRE_PACE = {
     "Fiction": 1.1,
@@ -56,7 +57,7 @@ GENRE_PACE = {
     "Self-help": 0.9,
     "Memoir": 1.0,
 }
-NOTES = ["Great chapter", "Hay quá", "Slow going tonight", "Couldn't put it down"]
+NOTES = ["Great chapter", "So good", "Slow going tonight", "Couldn't put it down"]
 
 
 def _reading_days(rng: np.random.Generator, days: int) -> np.ndarray:
