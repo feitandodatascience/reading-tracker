@@ -2,6 +2,25 @@
 
 All notable changes to this project. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-10-25
+
+The dashboard now wears the Regent brand of the portfolio site, where it is embedded.
+
+### Changed
+
+- **Brand** (`brand.md`, `brand.py`, `.streamlit/config.toml`): deep regent green on
+  pearl with one antique-gold accent, replacing the sand and olive palette. Headings in
+  Libre Bodoni and text in Jost at weight 450, replacing Glacial Indifference. The theme
+  stays light only.
+- **Charts** follow the new palette: Regent green bars with the current week in gold, a
+  green heatmap ramp, and Haze for abandoned books.
+- **Tracker**: the big Start and Stop buttons are Regent green with Pearl text.
+
+### Fixed
+
+- Charts sat on the theme's sunken colour instead of the page colour, because Streamlit
+  fills an unset `plot_bgcolor`. Each figure now sets it.
+
 ## [1.0.0] - 2026-10-17
 
 The first complete version: log reading privately, publish a branded dashboard.
