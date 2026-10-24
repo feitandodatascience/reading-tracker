@@ -4,9 +4,7 @@
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-<!-- Uncomment once the dashboard is live on Streamlit Community Cloud:
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://<your-app>.streamlit.app)
--->
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://tung-anh-reading.streamlit.app)
 
 I read in English and Vietnamese, mostly paper books. This project logs every
 reading session in a few seconds and turns them into a public dashboard of my
@@ -76,7 +74,7 @@ GitHub Actions.
 
 - [x] **v1.0:** tracker, features, demo data, privacy-safe export, baseline ETA, branded dashboard
 - [ ] Import my reading history from Toggl
-- [ ] Deploy the dashboard to Streamlit Community Cloud
+- [x] Deploy the dashboard to Streamlit Community Cloud: [tung-anh-reading.streamlit.app](https://tung-anh-reading.streamlit.app)
 - [ ] Bayesian time-to-finish model with a backtest (`notebooks/02_eta_model.ipynb`)
 
 See [CHANGELOG.md](CHANGELOG.md) for what changed in each version.
