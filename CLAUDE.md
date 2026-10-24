@@ -134,7 +134,7 @@ Rules:
 - `tests/test_brand.py` enforces the above: config.toml mirrors brand.py, and no hex codes appear in other code.
 - The brand is Regent, the portfolio site's brand; its source of truth is the site's `design/tokens.json`. The dashboard theme is locked to light.
 - Fonts (Libre Bodoni, Jost) live in `app/static/fonts/`, because Streamlit only serves `static/` next to the app. The Latin subsets have no Vietnamese diacritics, so book titles are entered in English.
-- Charts: Regent green is the main series and Haze its quiet pair. Antique gold only highlights one thing per view.
+- Charts: Regent green is the main series and Haze its quiet pair. Antique gold only highlights one thing per view. Set `plot_bgcolor` on each figure (`BASE_LAYOUT` in the dashboard): Streamlit fills an unset one with the theme's Mist.
 
 ## Workflow
 

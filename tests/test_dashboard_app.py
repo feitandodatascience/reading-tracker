@@ -1,11 +1,12 @@
 """Run the public dashboard with AppTest on demo and exported data."""
 
+import json
 from pathlib import Path
 
 import pytest
 from streamlit.testing.v1 import AppTest
 
-from reading_tracker import db, export
+from reading_tracker import brand, db, export
 
 DASHBOARD = Path(__file__).resolve().parents[1] / "app" / "dashboard.py"
 
@@ -73,3 +74,12 @@ def test_weekly_goal_and_pace_grouping_update(tmp_path, monkeypatch):
     for group in ["format", "language"]:
         app.button_group[0].set_value(group).run()
         assert not app.exception
+
+
+def test_charts_sit_on_the_page_colour(tmp_path, monkeypatch):
+    # Streamlit would fill an unset plot background with the theme's Mist.
+    app = open_dashboard(tmp_path / "nothing", monkeypatch)
+    for chart in app.get("plotly_chart"):
+        layout = json.loads(chart.proto.spec)["layout"]
+        assert layout["plot_bgcolor"] == brand.PEARL
+        assert layout["template"]["layout"]["paper_bgcolor"] == brand.PEARL

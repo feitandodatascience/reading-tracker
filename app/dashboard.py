@@ -19,6 +19,9 @@ import streamlit as st
 from reading_tracker import brand, db, eta, export, features
 
 TEMPLATE = brand.register_template()
+# Streamlit fills a figure's unset plot_bgcolor with the theme's secondary
+# background (a template value doesn't count), so set the page colour here.
+BASE_LAYOUT = {"template": TEMPLATE, "plot_bgcolor": brand.PEARL}
 PROCESSED_DIR = Path(
     os.environ.get("READING_TRACKER_PROCESSED_DIR") or db.PROCESSED_DIR
 )
@@ -123,7 +126,7 @@ def heatmap_figure(
         )
     )
     fig.update_layout(
-        template=TEMPLATE,
+        **BASE_LAYOUT,
         height=250,
         yaxis={"autorange": "reversed", "showgrid": False, "ticks": ""},
         xaxis={"showgrid": False, "tickformat": "%b", "dtick": "M1", "ticks": ""},
@@ -160,7 +163,7 @@ def weekly_figure(daily: pd.DataFrame, today: pd.Timestamp, goal: int) -> go.Fig
             annotation_position="top right",
         )
     fig.update_layout(
-        template=TEMPLATE,
+        **BASE_LAYOUT,
         height=280,
         bargap=0.25,
         yaxis={"title": "minutes"},
@@ -195,7 +198,7 @@ def pace_figure(paced: pd.DataFrame, group: str) -> go.Figure:
             )
         )
     fig.update_layout(
-        template=TEMPLATE,
+        **BASE_LAYOUT,
         height=90 + 48 * len(order),
         showlegend=False,
         xaxis={"title": "pages per minute", "rangemode": "tozero"},
@@ -226,7 +229,7 @@ def timeline_figure(done: pd.DataFrame) -> go.Figure:
     )
     fig.update_traces(marker={"cornerradius": 4})
     fig.update_layout(
-        template=TEMPLATE,
+        **BASE_LAYOUT,
         height=90 + 28 * len(data),
         legend_title_text="",
         xaxis={"title": "", "tickformat": "%b"},
