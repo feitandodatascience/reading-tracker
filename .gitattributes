@@ -2,3 +2,4 @@
 * text=auto eol=lf
 *.db binary
 *.parquet binary
+*.woff2 binary

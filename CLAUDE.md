@@ -65,7 +65,7 @@ reading-tracker/
 │   ├── launcher.py         # shared logic for the double-click launchers
 │   ├── start_tracker.pyw   # Windows double-click launchers (localhost only)
 │   ├── start_dashboard.pyw
-│   └── static/fonts/       # self-hosted Glacial Indifference + OFL.txt
+│   └── static/fonts/       # self-hosted Libre Bodoni and Jost + OFL.txt
 └── tests/
 ```
 
@@ -132,8 +132,9 @@ Rules:
 - Encode it once in `src/reading_tracker/brand.py` (palette constants and a registered plotly template) and in `.streamlit/config.toml`. Everything else imports from there; no hex codes scattered across files.
 - If `brand.md` doesn't specify something, choose a neutral default and list it under "assumptions" in your summary. Don't invent brand elements.
 - `tests/test_brand.py` enforces the above: config.toml mirrors brand.py, and no hex codes appear in other code.
-- Fonts live in `app/static/fonts/` (Streamlit only serves `static/` next to the app), not `assets/fonts/` as brand.md suggests. Glacial Indifference has no Vietnamese diacritics, so book titles are entered in English.
-- Charts: Olive and Bark are too close to tell apart (validated); pair Olive with the warm neutral `FAINT_INK`. Clay only highlights one thing per view.
+- The brand is Regent, the portfolio site's brand; its source of truth is the site's `design/tokens.json`. The dashboard theme is locked to light.
+- Fonts (Libre Bodoni, Jost) live in `app/static/fonts/`, because Streamlit only serves `static/` next to the app. The Latin subsets have no Vietnamese diacritics, so book titles are entered in English.
+- Charts: Regent green is the main series and Haze its quiet pair. Antique gold only highlights one thing per view.
 
 ## Workflow
 

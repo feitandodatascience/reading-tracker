@@ -42,8 +42,8 @@ synthetic.py ──> data/demo/demo.db (seeded, labelled "Demo data") ───�
   future sessions, positions within the book, timestamps with their UTC offset.
 - **Private by design.** The real database never leaves my machine. The public
   data has no notes, start times rounded down to the hour, and no end times.
-- **On brand.** One palette and font (Glacial Indifference) defined in
-  `brand.py` and `.streamlit/config.toml`; chart colours checked for colour blindness.
+- **On brand.** The Regent palette and type of my portfolio site (Libre Bodoni and
+  Jost), defined once in `brand.py` and `.streamlit/config.toml`.
 
 ## Run it
 
@@ -83,7 +83,7 @@ See [CHANGELOG.md](CHANGELOG.md) for what changed in each version.
 
 ## License
 
-The code is released under the [MIT License](LICENSE). The Glacial Indifference
-font is under the [SIL Open Font License](app/static/fonts/OFL.txt). My personal
+The code is released under the [MIT License](LICENSE). The Libre Bodoni and Jost
+fonts are under the [SIL Open Font License](app/static/fonts/OFL.txt). My personal
 reading data (`data/processed/`) and personal brand (`brand.md`, `assets/`) are
 not covered by the MIT License.

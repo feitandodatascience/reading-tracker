@@ -59,7 +59,7 @@ def load(source: str, folder: str) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def eyebrow(text: str) -> None:
-    """Brand section kicker: uppercase, bold, Olive."""
+    """Brand section kicker: uppercase, bold, bottle green."""
     st.markdown(f":green[**{text.upper()}**]")
 
 
@@ -132,13 +132,13 @@ def heatmap_figure(
 
 
 def weekly_figure(daily: pd.DataFrame, today: pd.Timestamp, goal: int) -> go.Figure:
-    """Minutes per week as bars, the current week in Clay, the goal as a line."""
+    """Minutes per week as bars, the current week in gold, the goal as a line."""
     weeks = daily.assign(
         week=daily["date"] - pd.to_timedelta(daily["date"].dt.weekday, unit="D")
     )
     weekly = weeks.groupby("week", as_index=False)["minutes"].sum().tail(WEEKS_SHOWN)
     this_week = today - pd.Timedelta(days=today.weekday())
-    colors = [brand.CLAY if w == this_week else brand.OLIVE for w in weekly["week"]]
+    colors = [brand.GOLD if w == this_week else brand.REGENT for w in weekly["week"]]
     fig = go.Figure(
         go.Bar(
             x=weekly["week"],
@@ -150,12 +150,12 @@ def weekly_figure(daily: pd.DataFrame, today: pd.Timestamp, goal: int) -> go.Fig
     if goal > 0:
         fig.add_hline(
             y=goal,
-            line={"color": brand.ESPRESSO, "dash": "dash", "width": 2},
+            line={"color": brand.FOREST, "dash": "dash", "width": 2},
             annotation={
                 "text": f"Goal {goal} min",
-                "font": {"color": brand.ESPRESSO},
+                "font": {"color": brand.FOREST},
                 "xanchor": "right",
-                "bgcolor": brand.SAND,
+                "bgcolor": brand.PEARL,
             },
             annotation_position="top right",
         )
@@ -188,8 +188,8 @@ def pace_figure(paced: pd.DataFrame, group: str) -> go.Figure:
                 boxpoints="all",
                 jitter=0.5,
                 pointpos=0,
-                marker={"color": brand.OLIVE, "size": 8, "opacity": 0.55},
-                line={"color": brand.ESPRESSO, "width": 2},
+                marker={"color": brand.REGENT, "size": 8, "opacity": 0.55},
+                line={"color": brand.FOREST, "width": 2},
                 fillcolor="rgba(0,0,0,0)",
                 hovertemplate="%{x:.2f} pages/min<extra>" + str(category) + "</extra>",
             )
@@ -325,7 +325,7 @@ st.plotly_chart(weekly_figure(daily, today, goal), theme=None, config=CHART_CONF
 this_week = daily[daily["date"] >= today - pd.Timedelta(days=today.weekday())]
 st.caption(
     f"This week so far: {this_week['minutes'].sum():.0f} of {goal} minutes"
-    " (current week in Clay)."
+    " (current week in gold)."
 )
 
 # 4. Pace -----------------------------------------------------------------------------

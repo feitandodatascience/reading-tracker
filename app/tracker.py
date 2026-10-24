@@ -31,13 +31,15 @@ DEFAULT_LANGUAGES = ["English", "Vietnamese"]
 LOCAL_ADDRESSES = ("localhost", "127.0.0.1", "::1")
 
 # Make the one action that matters on each screen big enough to hit blind, in
-# the brand's single accent (Clay) with Espresso text, as brand.md asks.
+# Regent green with Pearl text, like the site's filled buttons (brand.md).
 BIG = '.st-key-start button, [class*="st-key-stop_"] button'
 BIG_BUTTONS_CSS = f"""
 <style>
-{BIG} {{ min-height: 4.5rem; background: {brand.CLAY}; border-color: {brand.CLAY}; }}
-{BIG}:hover {{ background: {brand.CLAY}; border-color: {brand.ESPRESSO}; }}
-{BIG} p {{ font-size: 1.4rem; font-weight: 700; color: {brand.ESPRESSO}; }}
+{BIG} {{
+  min-height: 4.5rem; background: {brand.REGENT}; border-color: {brand.REGENT};
+}}
+{BIG}:hover {{ background: {brand.FOREST}; border-color: {brand.GOLD}; }}
+{BIG} p {{ font-size: 1.4rem; font-weight: 600; color: {brand.PEARL}; }}
 </style>
 """
 

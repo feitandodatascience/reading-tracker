@@ -1,4 +1,10 @@
-Copyright 2019 The Glacial Indifference Project Authors (https://github.com/marcologous/glacial-indifference)
+Libre Bodoni (LibreBodoni-Variable.woff2):
+Copyright 2012 The Libre Bodoni Project Authors (https://github.com/googlefonts/Libre-Bodoni/)
+
+Jost (Jost-Variable.woff2):
+Copyright 2020 The Jost Project Authors (https://github.com/indestructible-type)
+
+Both files are the Latin subsets published by Fontsource.
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is available with a FAQ at: https://scripts.sil.org/OFL

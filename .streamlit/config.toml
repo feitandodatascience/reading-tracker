@@ -1,35 +1,39 @@
-# Theme derived from brand.md. The same values live in
-# src/reading_tracker/brand.py; tests/test_brand.py keeps the two in sync.
-# Light only for v1: brand.md doesn't fully define dark mode yet.
+# Theme derived from brand.md (the Regent brand of the portfolio site). The same
+# values live in src/reading_tracker/brand.py; tests/test_brand.py keeps the two
+# in sync. Light only, locked: the dashboard is shown on the site's pearl pages.
 
 [theme]
 base = "light"
-primaryColor = "#5C6449"            # Olive: the everyday interactive layer
-backgroundColor = "#E7D8BE"         # Sand
-secondaryBackgroundColor = "#DFCFB2"  # Mist: widget and sunken surfaces
-textColor = "#322A22"               # body ink
-linkColor = "#5C6449"               # Olive
-borderColor = "#D8C4A2"             # hairline
-codeBackgroundColor = "#F1E7D2"     # Paper
-orangeColor = "#CB7C5B"             # Clay, used by the "Demo data" badge
-greenColor = "#5C6449"              # Olive, used for section eyebrows
-font = "Glacial Indifference"       # self-hosted, see [[theme.fontFaces]] below
-headingFontWeights = [700, 700, 700, 700, 700, 700]
-baseRadius = "0.5rem"
+primaryColor = "#0E3B2C"              # Regent green: buttons, active elements
+backgroundColor = "#EFF2EF"           # Pearl
+secondaryBackgroundColor = "#E5EAE6"  # Mist: widget and sunken surfaces
+textColor = "#1B2A24"                 # Ink
+linkColor = "#1A5C43"                 # Bottle green
+borderColor = "#CDD7D0"               # Hairline
+codeBackgroundColor = "#E5EAE6"       # Mist
+orangeColor = "#94733A"               # Antique gold, used by the "Demo data" badge
+orangeTextColor = "#0B271D"           # Forest: text on gold is deep
+greenColor = "#1A5C43"                # Bottle green, used for section eyebrows
+font = "Jost"                         # self-hosted, see [[theme.fontFaces]] below
+headingFont = "Libre Bodoni"
+baseFontWeight = 450                  # brand.md: body at 450, never lighter
+headingFontWeights = [500, 500, 500, 500, 500, 500]
+metricValueFontWeight = 500
+baseRadius = "0.25rem"
 showWidgetBorder = true
-chartCategoricalColors = ["#5C6449", "#9A8C74", "#2A241E"]
+chartCategoricalColors = ["#0E3B2C", "#8A9A93", "#1A5C43"]
 
-# Glacial Indifference (SIL OFL 1.1), from the designer's official repository
-# github.com/marcologous/glacial-indifference. Streamlit serves app/static/.
+# Libre Bodoni and Jost (SIL OFL 1.1), variable Latin subsets from Fontsource,
+# the same files as the portfolio site. Streamlit serves app/static/.
 [[theme.fontFaces]]
-family = "Glacial Indifference"
-url = "app/static/fonts/GlacialIndifference-Regular.otf"
-weight = 400
+family = "Libre Bodoni"
+url = "app/static/fonts/LibreBodoni-Variable.woff2"
+weight = "400 700"
 
 [[theme.fontFaces]]
-family = "Glacial Indifference"
-url = "app/static/fonts/GlacialIndifference-Bold.otf"
-weight = 700
+family = "Jost"
+url = "app/static/fonts/Jost-Variable.woff2"
+weight = "100 900"
 
 [server]
 enableStaticServing = true
