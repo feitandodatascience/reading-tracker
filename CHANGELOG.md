@@ -2,6 +2,14 @@
 
 All notable changes to this project. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-10-25
+
+### Fixed
+
+- Charts no longer zoom on a drag, a pinch or a swipe. The mode bar with its reset
+  button is hidden, so a zoomed chart could not be reset; now a swipe over a chart
+  scrolls, which matters where the dashboard is embedded on a phone.
+
 ## [1.1.0] - 2026-10-25
 
 The dashboard now wears the Regent brand of the portfolio site, where it is embedded.
