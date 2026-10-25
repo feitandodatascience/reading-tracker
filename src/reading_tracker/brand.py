@@ -59,6 +59,7 @@ def plotly_template() -> go.layout.Template:
         "tickfont": {"color": SLATE},
         "title": {"font": {"color": SLATE}},
         "automargin": True,
+        "fixedrange": True,  # no drag or pinch zoom, so a swipe over a chart scrolls
     }
     return go.layout.Template(
         layout={

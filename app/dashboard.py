@@ -21,7 +21,8 @@ from reading_tracker import brand, db, eta, export, features
 TEMPLATE = brand.register_template()
 # Streamlit fills a figure's unset plot_bgcolor with the theme's secondary
 # background (a template value doesn't count), so set the page colour here.
-BASE_LAYOUT = {"template": TEMPLATE, "plot_bgcolor": brand.PEARL}
+# No drag mode either: the mode bar (and its reset button) is hidden.
+BASE_LAYOUT = {"template": TEMPLATE, "plot_bgcolor": brand.PEARL, "dragmode": False}
 PROCESSED_DIR = Path(
     os.environ.get("READING_TRACKER_PROCESSED_DIR") or db.PROCESSED_DIR
 )

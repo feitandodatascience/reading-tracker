@@ -83,3 +83,14 @@ def test_charts_sit_on_the_page_colour(tmp_path, monkeypatch):
         layout = json.loads(chart.proto.spec)["layout"]
         assert layout["plot_bgcolor"] == brand.PEARL
         assert layout["template"]["layout"]["paper_bgcolor"] == brand.PEARL
+
+
+def test_charts_do_not_zoom_on_drag_or_swipe(tmp_path, monkeypatch):
+    # The mode bar is hidden, so a zoomed chart would have no reset button.
+    app = open_dashboard(tmp_path / "nothing", monkeypatch)
+    for chart in app.get("plotly_chart"):
+        layout = json.loads(chart.proto.spec)["layout"]
+        assert layout["dragmode"] is False
+        template = layout["template"]["layout"]
+        assert template["xaxis"]["fixedrange"] is True
+        assert template["yaxis"]["fixedrange"] is True
